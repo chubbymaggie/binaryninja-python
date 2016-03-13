@@ -27,10 +27,10 @@ class Array:
 		self._state = state
 		self.elements = []
 		for i in range(0, count):
-			self.elements += [Struct(state.data, state)]
+			self.elements += [Structure(state.data, state)]
 
 	def append(self):
-		self.elements.append(Struct(self._state.data, self._state))
+		self.elements.append(Structure(self._state.data, self._state))
 
 	def getStart(self):
 		start = None
@@ -62,7 +62,7 @@ class Array:
 		return len(self.elements)
 
 
-class Struct:
+class Structure:
 	def __init__(self, data, state = None):
 		self._data = data
 		self._state = state
@@ -80,7 +80,7 @@ class Struct:
 	def struct(self, name, id = None):
 		if id == None:
 			id = name
-		result = Struct(self._data, self._state)
+		result = Structure(self._data, self._state)
 		self.__dict__[id] = result
 		self._names[id] = name
 		self._type[id] = "struct"

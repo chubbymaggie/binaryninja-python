@@ -45,13 +45,7 @@ import CHighlight
 
 
 def loadPixmap(path):
-	if os.path.basename(sys.executable).lower().find('python') != -1:
-		# Run manually, use current directory
-		return QPixmap(path)
-	else:
-		# Running the distributed version, compute path to image
-		return QPixmap(os.path.join(os.path.dirname(sys.executable), path))
-
+	return QPixmap(os.path.join(os.path.dirname(os.path.realpath(__file__)),path))
 
 class AboutDialog(QDialog):
 	def __init__(self, parent=None):
@@ -1028,9 +1022,9 @@ class MainWindow(QMainWindow):
 
 	def shell(self):
 		if sys.platform == 'darwin':
-			data = TerminalData(["/bin/bash", "-i", "-l"], True)
+			data = TerminalData([os.environ.get('SHELL', '/bin/bash'), "-i", "-l"], True)
 		else:
-			data = TerminalData(["/bin/bash", "-i"], True)
+			data = TerminalData([os.environ.get('SHELL', '/bin/bash'), "-i"], True)
 		frame = ViewFrame(TerminalView, data, "Terminal", [TerminalView])
 		frame.allow_title_change = True
 		frame.custom_tab_name = "Terminal"
